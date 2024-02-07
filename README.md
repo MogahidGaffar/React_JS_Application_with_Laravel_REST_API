@@ -1,5 +1,11 @@
 # Project Description:
 
+
+ <h3 style="text-align:center">Main Page </h3>
+ <p align="center"><a  target="_blank"><img src="https://github.com/MogahidGaffar/React_JS_Application_with_Laravel_REST_API/blob/main/screen.PNG" height="650" width="700"></a></p></br>
+
+
+ 
 ## 1. Backend (Laravel):
 
 API for Participant Registration:

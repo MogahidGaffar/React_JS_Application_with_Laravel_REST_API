@@ -2,21 +2,30 @@ import React, { Component } from "react";
 import axios from "axios";
 import MyForm from "./MyForm";
 import ParticipantList from "./ParticipantList";
+import MatchList from "./MatchList";
 import Loader from "./Loader";
 import "./app.css";
 
 class App extends Component {
   state = {
     participants: [],
+    matches: [],
     loader: false,
     participant: {},
-    url: "http://127.0.0.1:8000/api/participants"
+    url: "http://127.0.0.1:8000/api/participants",
+    url2: "http://127.0.0.1:8000/api/matches"
   };
 
   getparticipants = async () => {
     this.setState({ loader: true });
     const participants = await axios.get(this.state.url);
     this.setState({ participants: participants.data, loader: false });
+  };
+
+  getmatches = async () => {
+    this.setState({ loader: true });
+    const matches = await axios.get(this.state.url2);
+    this.setState({ matches: matches.data, loader: false });
   };
 
   deleteparticipant = async id => {
@@ -70,6 +79,8 @@ class App extends Component {
 
   componentDidMount() {
     this.getparticipants();
+    this.getmatches();
+    
   }
 
   onDelete = id => {
@@ -109,11 +120,17 @@ class App extends Component {
             participant={this.state.participant}
           />
           {this.state.loader ? <Loader /> : ""}
+
           <ParticipantList
             participants={this.state.participants}
             onDelete={this.onDelete}
             onEdit={this.onEdit}
           />
+
+<MatchList
+            matches={this.state.matches}
+           />
+
         </div>
       </div>
     );

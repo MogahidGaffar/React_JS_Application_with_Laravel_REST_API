@@ -16,6 +16,8 @@ class participantsList extends Component {
     const participants = this.props.participants;
     return (
       <div className="data">
+                  <h2>participants List</h2>
+
         <table className="ui celled table">
           <thead>
             <tr>

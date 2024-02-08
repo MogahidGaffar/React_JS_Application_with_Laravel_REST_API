@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Mattch ;
-use App\Models\Participant ;
-
+use App\Models\Mattch;
+use App\Models\Participant;
+use Carbon\Carbon;
 class MatchContoller extends Controller
 {
     /**
@@ -15,11 +15,33 @@ class MatchContoller extends Controller
      */
     public function index()
     {
-      
-      
         $Mattches = Mattch::with('participant1', 'participant2')->get();
         return response()->json($Mattches);
     }
+
+
+
+
+    public function create_schedule()
+    {
+
+
+                // Create or find a new match
+                $match = Mattch::create([
+                'scheduled_time' => Carbon::now(),
+                // Other match details...
+                ]);
+
+// Find available participants with the required skill level
+$participants = Participant::availableForMatch($match)->inRandomOrder()->limit(2)->get();
+
+// Attach participants to the match
+$match->participants()->attach($participants);
+
+return response()->json("success");
+
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -28,7 +50,6 @@ class MatchContoller extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**

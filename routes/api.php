@@ -19,6 +19,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
+Route::get('matches/create_schedule', 'App\Http\Controllers\MatchContoller@create_schedule');
 Route::apiResource('participants', ParticipantContoller::class)->except(['create','edit']);
-Route::apiResource('matches', MatchContoller::class)->except(['create','edit']);
+Route::apiResource('matches', MatchContoller::class)->except(['edit']);

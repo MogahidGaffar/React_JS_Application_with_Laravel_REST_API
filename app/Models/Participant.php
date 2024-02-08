@@ -18,6 +18,13 @@ class Participant  extends Model
         return $this->belongsToMany(Mattch::class, 'mattch_participants');
     }
 
+    public function scopeAvailableForMatch($query, Mattch $match)
+    {
+        return $query->whereDoesntHave('matches', function ($subquery) use ($match) {
+            $subquery->where('match_date', $match->match_date);
+        })->where('skill_level', $match->getFirstAvailableParticipantSkillLevel());
+    }
+
 
 }
  

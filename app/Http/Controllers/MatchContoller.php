@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Mattch ;
+use App\Models\Participant ;
 
 class MatchContoller extends Controller
 {
@@ -14,7 +15,9 @@ class MatchContoller extends Controller
      */
     public function index()
     {
-        $Mattches = Mattch::orderBy('id','desc')->get();
+      
+      
+        $Mattches = Mattch::with('participant1', 'participant2')->get();
         return response()->json($Mattches);
     }
 

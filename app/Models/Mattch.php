@@ -11,10 +11,14 @@ class Mattch extends Model
 
     protected $fillable = ['scheduled_time','participant1_id','participant2_id'];
 
-    public function participants()
+    public function participant1()
     {
-        return $this->belongsToMany(Participant::class, 'match_participants');
+        return $this->belongsTo(Participant::class, 'participant_id');
     }
 
+    public function participant2()
+    {
+        return $this->belongsTo(Participant::class, 'participant_id2');
+    }
 
 }
